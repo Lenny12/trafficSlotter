@@ -23,13 +23,17 @@ import org.springframework.web.client.RestTemplate;
 import mobilityhackathon.controller.RouteManager;
 import mobilityhackathon.model.RouteRequest;
 
+import mobilityhackathon.util.Customer;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
 //@SpringBootApplication
 //@ComponentScan(basePackages = {"mobilityhackathon.controller"})
 public class App {
-	
     public static void main( String[] args ) {
-    	RouteManager routeManager = new RouteManager();
-    	routeManager.getRoute("Hammerbrook", "Harburg", "23.09.2017", "12:00");
+		System.out.println(new Customer("Langer Kamp 8"));
+		RouteManager routeManager = new RouteManager();
+		routeManager.getRoute("Hammerbrook", "Harburg", "23.09.2017", "12:00");
     }
     
 }
