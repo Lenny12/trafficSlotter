@@ -4,6 +4,6 @@ public class Place {
 	
 	private String name;
 	private String city;
-	private String 
+	private String city2;
 
 }
