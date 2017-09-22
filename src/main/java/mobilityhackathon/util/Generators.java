@@ -38,5 +38,17 @@ public class Generators {
     static String generateLastname(){
         return randomLine("./src/recources/lastnames.txt");
     }
+    static String generateStreet(){
+        return "Johann-Maier-Strasse 55";
+    }
+    public static List<Customer> generateCostumer(int number){
+        List<Customer> result = new ArrayList<>();
+
+        for(int i = 0; i < number; i++){
+            result.add(new Customer(generateStreet()));
+        }
+
+        return  result;
+    }
 
 }
