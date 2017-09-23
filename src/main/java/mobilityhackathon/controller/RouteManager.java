@@ -7,30 +7,26 @@ import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-//import org.apache.tomcat.util.codec.binary.Base64;
-//import org.codehaus.jackson.annotate.JsonMethod;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import mobilityhackathon.model.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.Charset;
+import java.util.Base64;
 
-import mobilityhackathon.model.Place;
-import mobilityhackathon.model.PlaceWrapper;
-import mobilityhackathon.model.RouteRequest;
-import mobilityhackathon.model.RouteWrapper;
-import mobilityhackathon.model.RouteWrapperWrapper;
-import mobilityhackathon.model.Time;
+//import org.apache.tomcat.util.codec.binary.Base64;
 
 public class RouteManager {
-	
-	public void getRoute(String start, String dest, String date, String time) {
+
+	public Route getRoute(String start, String dest, String date, String time) {
 		RouteRequest routeRequest = new RouteRequest(cnRequest(start), cnRequest(dest), new Time(date, time));
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
@@ -40,11 +36,11 @@ public class RouteManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(jsonBody);
-		routeRequest(jsonBody);
+
+		return routeRequest(jsonBody);
 	}
 	
-	private void routeRequest(String body) {
+	private Route routeRequest(String body) {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		HttpEntity<String> request = new HttpEntity<String>(body, getHeader(body, "H4m$urgH13okt"));
@@ -52,13 +48,38 @@ public class RouteManager {
     	  .exchange("https://api-hack.geofox.de/gti/public/getRoute", HttpMethod.POST, request, RouteWrapperWrapper.class);
     	  
     	RouteWrapper routeWrapper = response.getBody().getSchedules()[0];
-    	System.out.println(routeWrapper.getScheduleElements()[0].getFrom().getDepTime().getTime());
+    	return routeWrapper.getScheduleElements()[0];
+	}
+
+	private Route routeNextRequest(String body) {
+		RestTemplate restTemplate = new RestTemplate();
+
+		HttpEntity<String> request = new HttpEntity<String>(body, getHeader(body, "H4m$urgH13okt"));
+		ResponseEntity<RouteWrapperWrapper> response = restTemplate
+				.exchange("https://api-hack.geofox.de/gti/public/getRoute", HttpMethod.POST, request, RouteWrapperWrapper.class);
+
+		RouteWrapper routeWrapper = response.getBody().getSchedules()[0];
+		return routeWrapper.getScheduleElements()[0];
+	}
+
+	public Route getNextRoute(String start, String dest, String date, String time) {
+		RouteRequest routeRequest = new RouteRequest(cnRequest(start), cnRequest(dest), new Time(date, time));
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+		String jsonBody = "";
+		try {
+			jsonBody = mapper.writeValueAsString(routeRequest);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return routeNextRequest(jsonBody);
 	}
 	
 	private Place cnRequest(String station) {
 		RestTemplate restTemplate = new RestTemplate();
 		
-		String body = "{\"version\":16,\"theName\":{\"name\":\""+station+"\",\"type\":\"STATION\"},\"maxList\":1,\"coordinateType\":\"EPSG_4326\" }";
+		String body = "{\"version\":16,\"theName\":{\"name\":\""+station+"\",\"type\":\"STATION\"},\"maxList\":3,\"coordinateType\":\"EPSG_4326\" }";
 		System.out.println(body);
 		HttpEntity<String> request = new HttpEntity<String>(body, getHeader(body, "H4m$urgH13okt"));
     	ResponseEntity<PlaceWrapper> response = restTemplate

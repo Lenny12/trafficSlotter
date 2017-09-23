@@ -1,10 +1,3 @@
-############################
-# Liste mit Vornamen       #
-# Kodierung ISO-8859-1     #
-# (C) 2007 Peter Kolb      #
-# kolb@linguatools.de      #
-############################
-Aarne
 Aaron
 Aase
 Aba

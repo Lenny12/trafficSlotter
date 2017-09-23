@@ -28,6 +28,10 @@ public class Time {
 
 	public void setTime(String time) {
 		this.time = time;
-	} 
+	}
+
+	public String toString(){
+		return  date+"-"+time;
+	}
 	
 }
