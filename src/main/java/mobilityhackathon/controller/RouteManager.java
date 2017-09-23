@@ -8,7 +8,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 //import org.apache.tomcat.util.codec.binary.Base64;
-import org.codehaus.jackson.annotate.JsonMethod;
+//import org.codehaus.jackson.annotate.JsonMethod;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
