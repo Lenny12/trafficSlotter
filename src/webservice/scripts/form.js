@@ -18,10 +18,9 @@ $.ajax({
     timeout: 120000,
 });
 
-$(function() {
-	$("#getRoute").click(function() {
-		var event = document.getElementById("street");
-		var location = document.getElementById("eventDropdown");
+function tada(s,d) {
+		var event = s
+		var location = d;
 		var xhr = new XMLHttpRequest();
 	    xhr.open("POST", "http://localhost:8080/getRoute");
 	    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
