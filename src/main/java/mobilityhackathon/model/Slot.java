@@ -20,6 +20,10 @@ public class Slot {
         arrivalTime = dateTime.getValue();
         arrivalDate = dateTime.getKey();
     }
+    public Slot(Time time){
+        arrivalTime = time.getTime();
+        arrivalDate = time.getDate();
+    }
 
     public boolean isFull(){
         return counter >= MAX_COUNTER;

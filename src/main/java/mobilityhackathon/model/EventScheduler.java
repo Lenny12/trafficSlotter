@@ -20,12 +20,22 @@ public class EventScheduler {
     public String getRecommendedTime(Customer customer){
         String start = customer.street+", "+ customer.city;
         String end = e.location;
-        if(currentSlot.isFull())
-            currentSlot = new Slot(rm.nextArrivalDateTime(currentSlot.getDateTime()));
-
+        if(currentSlot.isFull()) {
+            Time nextTime =  rm.getRoute(start ,end, currentSlot.arrivalDate, addMinutes(currentSlot.arrivalTime)).getFrom().getDepTime();
+            System.out.println("\n\n"+nextTime+"\n\n");
+            currentSlot = new Slot(nextTime);
+        }
         currentSlot.increment();
-        System.out.println(currentSlot.arrivalDate+ " " +currentSlot.arrivalTime);
+        System.out.println(currentSlot.arrivalDate+ " " +currentSlot.arrivalTime+"\n\n\n");
         Time t = rm.getRoute(start ,end, currentSlot.arrivalDate, currentSlot.arrivalTime).getFrom().getDepTime();
         return t.getDate()+" "+t.getTime();
+    }
+    private String addMinutes(String time){
+        System.out.print(time);
+        int hours = Integer.getInteger(""+time.charAt(0)+time.charAt(1));
+        int minutes = Integer.getInteger(""+time.charAt(3)+time.charAt(4));
+
+        System.out.println(""+hours+minutes);
+        return null;
     }
 }

@@ -3,7 +3,6 @@ package mobilityhackathon.controller;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.util.Pair;
 import mobilityhackathon.model.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +18,7 @@ import java.util.Base64;
 //import org.apache.tomcat.util.codec.binary.Base64;
 
 public class RouteManager {
-	
+
 	public Route getRoute(String start, String dest, String date, String time) {
 		RouteRequest routeRequest = new RouteRequest(cnRequest(start), cnRequest(dest), new Time(date, time));
 		ObjectMapper mapper = new ObjectMapper();
@@ -44,11 +43,36 @@ public class RouteManager {
     	RouteWrapper routeWrapper = response.getBody().getSchedules()[0];
     	return routeWrapper.getScheduleElements()[0];
 	}
+
+	private Route routeNextRequest(String body) {
+		RestTemplate restTemplate = new RestTemplate();
+
+		HttpEntity<String> request = new HttpEntity<String>(body, getHeader(body, "H4m$urgH13okt"));
+		ResponseEntity<RouteWrapperWrapper> response = restTemplate
+				.exchange("https://api-hack.geofox.de/gti/public/getRoute", HttpMethod.POST, request, RouteWrapperWrapper.class);
+
+		RouteWrapper routeWrapper = response.getBody().getSchedules()[0];
+		return routeWrapper.getScheduleElements()[0];
+	}
+
+	public Route getNextRoute(String start, String dest, String date, String time) {
+		RouteRequest routeRequest = new RouteRequest(cnRequest(start), cnRequest(dest), new Time(date, time));
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+		String jsonBody = "";
+		try {
+			jsonBody = mapper.writeValueAsString(routeRequest);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return routeNextRequest(jsonBody);
+	}
 	
 	private Place cnRequest(String station) {
 		RestTemplate restTemplate = new RestTemplate();
 		
-		String body = "{\"version\":16,\"theName\":{\"name\":\""+station+"\",\"type\":\"STATION\"},\"maxList\":1,\"coordinateType\":\"EPSG_4326\" }";
+		String body = "{\"version\":16,\"theName\":{\"name\":\""+station+"\",\"type\":\"STATION\"},\"maxList\":3,\"coordinateType\":\"EPSG_4326\" }";
 		System.out.println(body);
 		HttpEntity<String> request = new HttpEntity<String>(body, getHeader(body, "H4m$urgH13okt"));
     	ResponseEntity<PlaceWrapper> response = restTemplate
@@ -104,7 +128,4 @@ public class RouteManager {
     	return header;
     }
 
-	public Pair<String,String> nextArrivalDateTime(Pair<String, String> dateTime) {
-		return new Pair<String, String>("1","2");
-	}
 }
