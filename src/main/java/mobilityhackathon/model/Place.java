@@ -2,7 +2,6 @@ package mobilityhackathon.model;
 
 public class Place {
 	
-<<<<<<< HEAD
 //	private String name;
 //	private String city;
 //	private String combinedName;
@@ -80,10 +79,5 @@ public class Place {
 //	public void setServiceTypes(String serviceTypes[]) {
 //		this.serviceTypes = serviceTypes;
 //	}
-=======
-	private String name;
-	private String city;
-	private String city2;
->>>>>>> 74a489232c7b6c7dacb5b7788797d8e98cf0c566
 
 }
