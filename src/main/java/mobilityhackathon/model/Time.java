@@ -5,6 +5,10 @@ public class Time {
 	private String date;
 	private String time;
 	
+	public Time() {
+		super();
+	}
+	
 	public Time(String date, String time) {
 		this.setDate(date);
 		this.setTime(time);
