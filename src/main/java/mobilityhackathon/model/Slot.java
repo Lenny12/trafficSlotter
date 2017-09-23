@@ -8,6 +8,8 @@ import javafx.util.Pair;
 public class Slot {
     private int counter;
     private final static int MAX_COUNTER = 10;
+    private String startTime;
+    private String destTime;
     String arrivalTime ="";
     public String arrivalDate;
 
@@ -35,7 +37,22 @@ public class Slot {
 
     public Pair<String, String> getDateTime(){
         return new Pair<String, String>(arrivalDate,arrivalTime);
-
     }
+    
+    public String getArrTime() {
+    	return arrivalTime;
+    }
+	public String getDestTime() {
+		return destTime;
+	}
+	public void setDestTime(String destTime) {
+		this.destTime = destTime;
+	}
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
 
 }
