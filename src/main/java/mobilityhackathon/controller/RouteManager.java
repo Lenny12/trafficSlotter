@@ -132,7 +132,7 @@ public class RouteManager {
     	header.set("geofox-auth-user", "mobi-hack");
     	header.set("geofox-auth-signature", sha1Key);
     	header.set("geofox-auth-type", "HmacSHA1");
-    	return header;
+    	return header; 
     }
 
 }

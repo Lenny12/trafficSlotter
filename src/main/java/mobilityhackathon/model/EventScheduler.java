@@ -1,5 +1,7 @@
 package mobilityhackathon.model;
 
+import java.time.LocalTime;
+
 import mobilityhackathon.controller.RouteManager;
 import mobilityhackathon.util.Customer;
 
@@ -21,7 +23,7 @@ public class EventScheduler {
         String start = customer.street+", "+ customer.city;
         String end = e.location;
         if(currentSlot.isFull()) {
-            Time nextTime =  rm.getRoute(start ,end, currentSlot.arrivalDate, addMinutes(currentSlot.arrivalTime)).getFrom().getDepTime();
+            Time nextTime =  rm.getRoute(start ,end, currentSlot.arrivalDate, subMinutes(currentSlot.arrivalTime)).getFrom().getDepTime();
             System.out.println("\n\n"+nextTime+"\n\n");
             currentSlot = new Slot(nextTime);
         }
@@ -30,12 +32,11 @@ public class EventScheduler {
         Time t = rm.getRoute(start ,end, currentSlot.arrivalDate, currentSlot.arrivalTime).getFrom().getDepTime();
         return t.getDate()+" "+t.getTime();
     }
-    private String addMinutes(String time){
+    private String subMinutes(String time){
         System.out.print(time);
-        int hours = Integer.getInteger(""+time.charAt(0)+time.charAt(1));
-        int minutes = Integer.getInteger(""+time.charAt(3)+time.charAt(4));
-
-        System.out.println(""+hours+minutes);
-        return null;
+        LocalTime t = LocalTime.parse(time);
+        t.minusMinutes(10);
+        String newTime = t.toString();
+        return newTime;
     }
 }
