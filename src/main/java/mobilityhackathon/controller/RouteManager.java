@@ -36,7 +36,7 @@ public class RouteManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		System.out.println(jsonBody);
 		return routeRequest(jsonBody);
 	}
 	
@@ -72,7 +72,7 @@ public class RouteManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		System.out.println(jsonBody);
 		return routeNextRequest(jsonBody);
 	}
 	

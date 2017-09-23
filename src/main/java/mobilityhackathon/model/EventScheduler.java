@@ -21,11 +21,11 @@ public class EventScheduler {
     public EventScheduler(LocalEvent e){
         this.e = e;
         rm = new RouteManager();
+        jsonUtils = new JsonUtils();
         currentSlot = new Slot(e.startDate, e.startTime);
-
     }
     public String getRecommendedTime(Customer customer){
-        String start = customer.street+", "+ customer.city;
+        String start = customer.street;
         String end = e.location;
         if(currentSlot.isFull()) {
             Time nextTime =  rm.getRoute(start ,end, currentSlot.arrivalDate, subMinutes(currentSlot.arrivalTime)).getFrom().getDepTime();
@@ -33,7 +33,6 @@ public class EventScheduler {
             currentSlot = new Slot(nextTime);
         }
         currentSlot.increment();
-        System.out.println(currentSlot.arrivalDate+ " " +currentSlot.arrivalTime+"\n\n\n");
         Route route = rm.getRoute(start ,end, currentSlot.arrivalDate, currentSlot.arrivalTime);
         currentSlot.setDestTime(route.getFrom().getDepTime().getTime());
         currentSlot.setStartTime(route.getTo().getArrTime().getTime());
@@ -44,5 +43,9 @@ public class EventScheduler {
         t.minusMinutes(10);
         String newTime = t.toString();
         return newTime;
+    }
+    
+    public String getEvent() {
+    	return e.name;
     }
 }

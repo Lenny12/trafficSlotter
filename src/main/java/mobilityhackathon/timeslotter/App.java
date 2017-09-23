@@ -22,14 +22,14 @@ import mobilityhackathon.util.Customer;
 public class App {
     public static void main( String[] args ) {
     	SpringApplication.run(App.class, args);
-		RouteManager routeManager = new RouteManager();
-		routeManager.getRoute("Hammerbrook", "Harburg", "23.09.2017", "12:00");
-		String result = "";
-        EventScheduler es = new EventScheduler(new LocalEvent(new Time("28.09.2017", "13:20"),"Jungfernstieg","Helenefischer"));
-        List<Customer> customers = Generators.generateCostumer(20,"Berliner Tor");
-        for(Customer c : customers){
-           result += es.getRecommendedTime(c)+"\n";
-        }
-        System.out.println(result);
+//		RouteManager routeManager = new RouteManager();
+//		routeManager.getRoute("Hammerbrook", "Harburg", "23.09.2017", "12:00");
+//		String result = "";
+//        EventScheduler es = new EventScheduler(new LocalEvent(new Time("28.09.2017", "13:20"),"Jungfernstieg","Helenefischer"));
+//        List<Customer> customers = Generators.generateCostumer(20,"Berliner Tor");
+//        for(Customer c : customers){
+//           result += es.getRecommendedTime(c)+"\n";
+//        }
+//        System.out.println(result);
     }
 }

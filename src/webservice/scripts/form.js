@@ -3,11 +3,10 @@ $.ajax({
     url: "http://localhost:8080/eventList",
     type: 'GET',
     success: function(resultData) {
-    	console.log(resultData);
     	var options = document.getElementById("eventDropdown");
     	resultData.forEach(function (event) {
         	var op = document.createElement("OPTION");
-        	op.value = event.id;
+        	op.value = event.name;
         	op.text = event.name;
         	options.append(op);
         });
@@ -36,12 +35,16 @@ $(function() {
 function showRoutes(routes) {
 	var html = '<div class=\"row\">';
 	var routeNum = 1;
+	var txt;
+	var glyph;
+	console.log(routes);
 	routes.forEach(function (route) {
-		var txt = 'empfohlen';
-		var gylph = 'glyphicons/png/glyphicons-207-ok.png';
 		if (route.color === 'red') {
 			txt = 'nicht empfohlen';
 			glyph = 'glyphicons/png/glyphicons-208-remove.png'; 
+		} else {
+			txt = 'empfohlen';
+			gylph = 'glyphicons/png/glyphicons-207-ok.png';
 		}
 		html += '<div class=\"col-2 text-center\"><br><img src=\"'+glyph+'\"></img></span><br>'+txt+'<br>route '+routeNum+'<br>'+route.startTime+'<br>'+route.start+'<br>'+route.arrTime+'<br>'+route.dest+'</div>';
 		routeNum++;

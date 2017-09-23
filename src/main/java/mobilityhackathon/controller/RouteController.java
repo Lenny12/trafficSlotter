@@ -12,16 +12,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import mobilityhackathon.model.Event;
+import mobilityhackathon.model.EventScheduler;
 import mobilityhackathon.model.LocalEvent;
 import mobilityhackathon.model.Time;
+import mobilityhackathon.util.Customer;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class RouteController {
 	
+	private static final EventManager eventManager = new EventManager();
+	
 	@GetMapping("/eventList")
     public LocalEvent[] greeting() {
-        return getTestEventList();
+        return eventManager.getTestEventList();
     }
 	
 	@PostMapping("/getRoute")
@@ -29,8 +33,8 @@ public class RouteController {
     public String getRoute(@RequestBody String event) {
 		//System.out.println(features.getType());
 		System.out.println(event);
-		return "[{\"color\":\"red\",\"startTime\":\"18:20\",\"arrTime\":\"18:30\",\"start\":\"Jungfernstieg\",\"dest\":\"Berliner Tor\"}"+
-				",{\"color\":\"green\",\"startTime\":\"18:10\",\"arrTime\":\"18:20\",\"start\":\"Jungfernstieg\",\"dest\":\"Berliner Tor\"}]";
+		EventScheduler scheduler = eventManager.getEventScheduler(event);
+		return scheduler.getRecommendedTime(new Customer("Jungfernstieg"));
     }
 
 }
