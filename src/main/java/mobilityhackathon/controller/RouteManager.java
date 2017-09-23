@@ -1,32 +1,22 @@
 package mobilityhackathon.controller;
 
-import java.nio.charset.Charset;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-
-//import org.apache.tomcat.util.codec.binary.Base64;
-import org.codehaus.jackson.annotate.JsonMethod;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.util.Pair;
+import mobilityhackathon.model.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.Charset;
+import java.util.Base64;
 
-import mobilityhackathon.model.Place;
-import mobilityhackathon.model.PlaceWrapper;
-import mobilityhackathon.model.RouteRequest;
-import mobilityhackathon.model.RouteWrapper;
-import mobilityhackathon.model.RouteWrapperWrapper;
-import mobilityhackathon.model.Time;
+//import org.apache.tomcat.util.codec.binary.Base64;
 
 public class RouteManager {
 	
@@ -114,4 +104,7 @@ public class RouteManager {
     	return header;
     }
 
+	public Pair<String,String> nextArrivalDateTime(String arrivalDate, String arrivalTime) {
+
+	}
 }

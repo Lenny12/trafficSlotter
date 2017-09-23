@@ -1,5 +1,6 @@
 package mobilityhackathon.model;
 
+import mobilityhackathon.controller.RouteManager;
 import mobilityhackathon.util.Customer;
 
 /**
@@ -12,7 +13,7 @@ public class EventScheduler {
 
     public EventScheduler(LocalEvent e){
         this.e =e;
-        rm = RouteManager();
+        rm = new RouteManager();
         currentSlot = new Slot(e.startTime);
 
     }
@@ -20,10 +21,10 @@ public class EventScheduler {
         String start = customer.street+", "+ customer.city;
         String end = e.location;
         if(currentSlot.isFull())
-            currentSlot = new Slot(GeoFox.nextArrivalTime(currentSlot.arrivalTime));
+            currentSlot = new Slot(rm.nextArrivalTime(currentSlot.arrivalTime));
 
         currentSlot.increment();
 
-        return GeoFox.getRoute(start,end, currentSlot.arrivalTime);
+        return rm.getRoute(start,end, currentSlot.arrivalDate, currentSlot.arrivalTime,);
     }
 }

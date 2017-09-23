@@ -7,9 +7,11 @@ public class Slot {
     private int counter;
     private final static int MAX_COUNTER = 10;
     String arrivalTime ="";
+    public String arrivalDate;
 
-    public Slot(String arrivalTime){
+    public Slot(String arrivalTime, String arrivalDate){
         this.arrivalTime = arrivalTime;
+        this.arrivalDate = arrivalDate;
         counter = 0;
     }
 
