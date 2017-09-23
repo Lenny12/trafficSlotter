@@ -20,7 +20,7 @@ import java.util.Base64;
 
 public class RouteManager {
 	
-	public void getRoute(String start, String dest, String date, String time) {
+	public Route getRoute(String start, String dest, String date, String time) {
 		RouteRequest routeRequest = new RouteRequest(cnRequest(start), cnRequest(dest), new Time(date, time));
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
@@ -30,11 +30,11 @@ public class RouteManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(jsonBody);
-		routeRequest(jsonBody);
+
+		return routeRequest(jsonBody);
 	}
 	
-	private void routeRequest(String body) {
+	private Route routeRequest(String body) {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		HttpEntity<String> request = new HttpEntity<String>(body, getHeader(body, "H4m$urgH13okt"));
@@ -42,7 +42,7 @@ public class RouteManager {
     	  .exchange("https://api-hack.geofox.de/gti/public/getRoute", HttpMethod.POST, request, RouteWrapperWrapper.class);
     	  
     	RouteWrapper routeWrapper = response.getBody().getSchedules()[0];
-    	System.out.println(routeWrapper.getScheduleElements()[0].getFrom().getDepTime().getTime());
+    	return routeWrapper.getScheduleElements()[0];
 	}
 	
 	private Place cnRequest(String station) {
@@ -104,7 +104,7 @@ public class RouteManager {
     	return header;
     }
 
-	public Pair<String,String> nextArrivalDateTime(String arrivalDate, String arrivalTime) {
-
+	public Pair<String,String> nextArrivalDateTime(Pair<String, String> dateTime) {
+		return new Pair<String, String>("1","2");
 	}
 }

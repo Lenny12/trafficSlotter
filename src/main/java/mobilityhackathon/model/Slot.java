@@ -1,5 +1,7 @@
 package mobilityhackathon.model;
 
+import javafx.util.Pair;
+
 /**
  * Created by melvyn on 22.09.17.
  */
@@ -9,10 +11,14 @@ public class Slot {
     String arrivalTime ="";
     public String arrivalDate;
 
-    public Slot(String arrivalTime, String arrivalDate){
+    public Slot(String arrivalDate, String arrivalTime){
         this.arrivalTime = arrivalTime;
         this.arrivalDate = arrivalDate;
         counter = 0;
+    }
+    public Slot(Pair<String, String> dateTime){
+        arrivalTime = dateTime.getValue();
+        arrivalDate = dateTime.getKey();
     }
 
     public boolean isFull(){
@@ -21,6 +27,11 @@ public class Slot {
 
     public void increment(){
         counter++;
+    }
+
+    public Pair<String, String> getDateTime(){
+        return new Pair<String, String>(arrivalDate,arrivalTime);
+
     }
 
 }

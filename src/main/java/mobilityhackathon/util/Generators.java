@@ -50,5 +50,15 @@ public class Generators {
 
         return  result;
     }
+    public static List<Customer> generateCostumer(int number, String street){
+        List<Customer> result = new ArrayList<>();
+
+        for(int i = 0; i < number; i++){
+            result.add(new Customer(street));
+        }
+
+        return  result;
+    }
+
 
 }
