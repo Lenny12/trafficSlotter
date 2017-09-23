@@ -7,7 +7,7 @@ import javafx.util.Pair;
  */
 public class Slot {
     private int counter;
-    private final static int MAX_COUNTER = 10;
+    private final static int MAX_COUNTER = 2;
     private String startTime;
     private String destTime;
     String arrivalTime ="";

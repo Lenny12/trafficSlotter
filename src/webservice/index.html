@@ -10,58 +10,24 @@
 <script src="scripts/index.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
+	<body background="recources/zug.jpg">
 	<div class="container">
 		<nav
-			class="navbar navbar navbar-inverse bg-inverse navbar-static-top">
+			class="navbar navbar-inverse">
 			<a class="navbar-brand" href="#">traffic slotter</a>
 		</nav>
 	</div>
 	<div class="container">
-		<form>
-			<div class="row">
-				<div class="col-1">
-					<label>Vorname</label>
-				</div>
-				<div class="col-3">
-					<input id="forename" type="text"></input>
-				</div>
-				<div class="col-1">
-					<label>Nachname</label>
-				</div>
-				<div class="col-3">
-					<input id="surename" type="text"></input>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-1">
-					<label>Straße</label>
-				</div>
-				<div class="col-3">
-					<input id="street" type="text"></input>
-				</div>
-				<div class="col-1">
-					<label>Ort</label>
-				</div>
-				<div class="col-3">
-					<input id="location" type="text"></input>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-1">
+	<div class="card" style="width: 20rem; opacity: 0.85; border-style: none; outline-offset: 15px; margin: 15px;">
+	<div class="form-group" style="margin: 12px;">
+			<label>Location</label>
+			<input id="street" type="text"></input><br>
 					<label>Event</label>
-				</div>
-				<div class="col-3">
 					<select id="eventDropdown" name="event"></select>
-				</div>
-			</div>
-			<div class=row>
-				<div class="col-1"></div>
-				<div class="col-1">
 					<input id="getRoute" type="button" value="Teilnehmen" />
 				</div>
 			</div>
-		</form>
-	</div>
+			</div>
 	<div id="routeContainer" class="container">
 		
 	</div>

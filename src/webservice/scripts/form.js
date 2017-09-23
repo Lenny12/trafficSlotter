@@ -20,11 +20,14 @@ $.ajax({
 
 $(function() {
 	$("#getRoute").click(function() {
-		var event = document.getElementById("eventDropdown");
+		var event = document.getElementById("street");
+		var location = document.getElementById("eventDropdown");
 		var xhr = new XMLHttpRequest();
 	    xhr.open("POST", "http://localhost:8080/getRoute");
 	    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-	    xhr.send(event.value);
+	    console.log(event.value+','+location.value);
+	    xhr.send(event.value+','+location.value);
+	    
 	    xhr.onloadend = function (result) {
 	    	console.log(result.currentTarget.response);
 	    	showRoutes(JSON.parse(result.currentTarget.response));
@@ -41,12 +44,12 @@ function showRoutes(routes) {
 	routes.forEach(function (route) {
 		if (route.color === 'red') {
 			txt = 'nicht empfohlen';
-			glyph = 'glyphicons/png/glyphicons-208-remove.png'; 
+			glyph = '#fa8258'; 
 		} else {
 			txt = 'empfohlen';
-			gylph = 'glyphicons/png/glyphicons-207-ok.png';
+			glyph = '#58fa58';
 		}
-		html += '<div class=\"col-2 text-center\"><br><img src=\"'+glyph+'\"></img></span><br>'+txt+'<br>route '+routeNum+'<br>'+route.startTime+'<br>'+route.start+'<br>'+route.arrTime+'<br>'+route.dest+'</div>';
+		html += '<div class="card" style="width: 10rem; opacity: 0.85; border-style: none; outline-offset: 15px; margin: 15px;"><br><div style="background-color:'+glyph+';"><p style="margin: 12px;">'+txt+'</p></div><div style="margin-left: 12px;margin-bottom: 8px;">route '+routeNum+'<br>'+route.startTime+'<br>'+route.start+'<br>'+route.arrTime+'<br>'+route.dest+'</div></div>';
 		routeNum++;
 	});
 	html += '</div>';

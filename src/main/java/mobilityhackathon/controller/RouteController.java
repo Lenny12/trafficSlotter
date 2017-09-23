@@ -33,8 +33,10 @@ public class RouteController {
     public String getRoute(@RequestBody String event) {
 		//System.out.println(features.getType());
 		System.out.println(event);
-		EventScheduler scheduler = eventManager.getEventScheduler(event);
-		return scheduler.getRecommendedTime(new Customer("Jungfernstieg"));
+		String[] s = event.split(",");
+		System.out.println(s[1]);
+		EventScheduler scheduler = eventManager.getEventScheduler(s[1]);
+		return scheduler.getRecommendedTime(new Customer(s[0]));
     }
 
 }
